@@ -1,0 +1,19 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible" content="ie=edge")
+        block title
+            link(href="../main.css" rel="stylesheet")
+            title= htmlWebpackPlugin.options.title
+    body        
+        div(class="container" id="container")
+            div(class="view-container")
+                div(class="view")
+                    div(class="image")
+            div(class="form-container sign-up-container")
+                form(name="resetForm")
+                    h1 Reset password
+                    a(a href="http://localhost:3000/pages/register.html") Not a member?
+                    p Please check your email for a reset link it is valid for 30 min only
