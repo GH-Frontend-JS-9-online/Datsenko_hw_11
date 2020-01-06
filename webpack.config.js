@@ -5,9 +5,14 @@ const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin')
 const path = require("path")
 
 module.exports = {
+    entry: "./src/index.js" ,
+    output: {
+        path: path.resolve(__dirname, 'public'),
+        filename: "main.js",
+    },
     devtool: "source-map",
     devServer: {
-        contentBase: path.join(__dirname, 'dist'),
+        contentBase: path.join(__dirname, 'public'),
         compress: true,
         port: 3000
     },

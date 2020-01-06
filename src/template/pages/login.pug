@@ -21,3 +21,31 @@ html(lang="en")
                     input(type="password" name="userPassword" placeholder="Password...")
                     a(href="http://localhost:3000/pages/reset.html") Forgot password?
                     input(type="submit" class="btn" name="login" value="Log in")
+        script.
+            let apiBase = 'http://localhost:3000/api'
+            const btnLogin = document.querySelector('input[name="login"]')
+            btnLogin.addEventListener('click', (event) => {
+                event.preventDefault()
+                let loginForm = document.forms['loginForm']
+                let userEmail = loginForm.elements['userEmail'].value
+                let userPassword = loginForm.elements['userPassword'].value
+                login(userEmail, userPassword)
+                    .then(response => response.json())
+                    .then(result => console.log(result))
+                    .catch(error => console.log(error))
+                loginForm.elements['userEmail'].value = ''
+                loginForm.elements['userPassword'].value = ''
+            })
+            async function login(userEmail, userPassword) {
+                const login = await fetch(`${apiBase}/users/login`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        email: userEmail,
+                        password: userPassword,
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                return login
+            }
