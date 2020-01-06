@@ -2,13 +2,21 @@ const HtmlWebPackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin')
+const path = require("path")
 
 module.exports = {
     devtool: "source-map",
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 3000
+    },
     module: {
         rules: [{
                 test: /\.m?js$/,
-                resolve: {extensions: ['.ts', '.js']},
+                resolve: {
+                    extensions: ['.ts', '.js']
+                },
                 exclude: /(node_modules|bower_components)/,
                 use: {
                     loader: 'babel-loader',
@@ -116,7 +124,7 @@ module.exports = {
                     unformatted: ['p', 'i', 'b', 'span']
                 }
             },
-            replace: [ ' type="text/javascript"' ]
+            replace: [' type="text/javascript"']
         })
     ]
 
