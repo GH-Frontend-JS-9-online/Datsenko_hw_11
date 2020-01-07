@@ -1,3 +1,4 @@
+![register](https://user-images.githubusercontent.com/51996182/71881860-db484700-313b-11ea-8ea4-43852a1712ef.gif)
 ![afterreset](https://user-images.githubusercontent.com/51996182/71820724-b51d9b00-3098-11ea-897f-75d8eb8df6fd.png)
 ![login](https://user-images.githubusercontent.com/51996182/71820725-b51d9b00-3098-11ea-9e3f-e65f72a8437a.png)
 ![register](https://user-images.githubusercontent.com/51996182/71820727-b5b63180-3098-11ea-8110-54f408425067.png)
