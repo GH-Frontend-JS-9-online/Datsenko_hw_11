@@ -16,8 +16,8 @@ html(lang="en")
                 form(name="resetForm")
                     h1 Reset password
                     span Please enter your new password                            
-                    input(type="password" name="userPassword" placeholder="Password...")
-                    input(input type="password" name="userConfirmPassword" placeholder="Confirm password...")
+                    input(type="password" name="userPassword" placeholder="Password..." required)
+                    input(input type="password" name="userConfirmPassword" placeholder="Confirm password..." required)
                     input(type="submit" class="btn" name="reset" value="Sign up")
         script.
             let apiBase = 'http://localhost:3000/api'

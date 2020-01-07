@@ -17,22 +17,42 @@ html(lang="en")
                 form(name="loginForm")
                     h1 Log in
                     a(a href="http://localhost:3000/pages/register.html") Not a member?
-                    input(type="email" name="userEmail" placeholder="Email...")
-                    input(type="password" name="userPassword" placeholder="Password...")
+                    input(type="email" name="userEmail" placeholder="Email..." required)
+                    input(type="password" name="userPassword" placeholder="Password..." required)
                     a(href="http://localhost:3000/pages/reset.html") Forgot password?
                     input(type="submit" class="btn" name="login" value="Log in")
         script.
             let apiBase = 'http://localhost:3000/api'
             const btnLogin = document.querySelector('input[name="login"]')
+            let errDiv = document.createElement('div')
+            errDiv.style.cssText = 'color: red;'
+            btnLogin.insertAdjacentElement('beforebegin', errDiv)
+            document.querySelectorAll('input').forEach(input => {
+                input.onblur = () => {
+                    errDiv.innerHTML = ''
+                }
+            })
             btnLogin.addEventListener('click', (event) => {
                 event.preventDefault()
                 let loginForm = document.forms['loginForm']
                 let userEmail = loginForm.elements['userEmail'].value
                 let userPassword = loginForm.elements['userPassword'].value
                 login(userEmail, userPassword)
-                    .then(response => response.json())
-                    .then(result => console.log(result))
-                    .catch(error => console.log(error))
+                    .then(response => {
+                        if (response.status === 400) {
+                            errDiv.innerHTML = 'Oops, looks like email or password is incorrect.Please try again.'
+                            console.log(response.status)
+                        } else if (response.status === 404) {
+                            errDiv.innerHTML = 'Oops, looks like email or password is incorrect.Please try again.'
+                            console.log(response.status)
+                        } else if (response.status === 200) {							
+                            errDiv.innerHTML = ''
+                            console.log(response.status)								
+                            }						
+                    })
+                    .catch(error => {
+                        errDiv.innerHTML = error
+                    })
                 loginForm.elements['userEmail'].value = ''
                 loginForm.elements['userPassword'].value = ''
             })
