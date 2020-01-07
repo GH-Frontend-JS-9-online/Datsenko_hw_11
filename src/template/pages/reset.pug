@@ -22,28 +22,52 @@ html(lang="en")
         script.
             let apiBase = 'http://localhost:3000/api'
             const btnResetPassword = document.querySelector('input[name="reset"]')
+            let errDiv = document.createElement('div')
+            errDiv.style.cssText = 'color: red;'
+            btnResetPassword.insertAdjacentElement('beforebegin', errDiv)
+            document.querySelectorAll('input').forEach(input => {
+                input.onblur = () => {
+                    errDiv.innerHTML = ''
+                }
+            })
             btnResetPassword.addEventListener('click', (event) => {
                 event.preventDefault()
                 let resetForm = document.forms['resetForm']
                 let userPassword = resetForm.elements['userPassword'].value
                 let userConfirmPassword = resetForm.elements['userConfirmPassword'].value
-                resetPassword(userPassword, userConfirmPassword)
-                    .then(response => response.json())
-                    .then(result => console.log(result))
-                    .catch(error => console.log(error))
+                console.log(typeof localStorage.getItem('email'))
+                resetPassword(userPassword, userConfirmPassword, localStorage.getItem('email'))
+                    .then(response => {
+                        if (response.status === 400) {
+                            errDiv.innerHTML = 'Your password does not match'
+                            console.log(response.status, response)
+                            
+                        } else if (response.status === 404) {
+                            errDiv.innerHTML = 'Your password does not match'
+                            console.log(response.status, response)
+                        } else if (response.status === 200) {							
+                            errDiv.innerHTML = ''
+                            console.log(response.status, response)
+                            window.location = "http://localhost:3000/pages/afterreset.html"
+                            }						
+                    })
+                    .catch(error => {
+                        errDiv.innerHTML = error
+                    })
                 resetForm.elements['userPassword'].value = ''
                 resetForm.elements['userConfirmPassword'].value = ''
             })
-            async function resetPassword(userPassword, userConfirmPassword) {
+            async function resetPassword(userPassword, userConfirmPassword, userEmail) {                
                 const resetPassword = await fetch(`${apiBase}/users/reset_password`, {
                     method: 'POST',
                     body: JSON.stringify({
                         password: userPassword,
                         confirmationPassword: userConfirmPassword,
-                        email: 'someemail@gmail.com'
+                        email: userEmail
                     }),
-                    headers: {
-                        'Content-Type': 'application/json'
+                    headers: {                        
+                        'Content-Type': 'application/json',
+                        'x-access-token': localStorage.getItem('token')
                     }
                 })
                 return resetPassword

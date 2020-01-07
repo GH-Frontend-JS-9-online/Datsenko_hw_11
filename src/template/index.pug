@@ -17,7 +17,7 @@ html(lang="en")
                     a(a href="http://localhost:3000/pages/register.html") Not a member?
                     input(type="email" name="userEmail" placeholder="Email..." required)
                     input(type="password" name="userPassword" placeholder="Password..." required)
-                    a(href="http://localhost:3000/pages/reset.html") Forgot password?
+                    a(href="http://localhost:3000/pages/sendreset.html") Forgot password?
                     input(type="submit" class="btn" name="login" value="Log in")
         script.
             let apiBase = 'http://localhost:3000/api'
@@ -39,13 +39,14 @@ html(lang="en")
                     .then(response => {
                         if (response.status === 400) {
                             errDiv.innerHTML = 'Oops, looks like email or password is incorrect.Please try again.'
-                            console.log(response.status)
+                            console.log(response.statu, responses)
                         } else if (response.status === 404) {
                             errDiv.innerHTML = 'Oops, looks like email or password is incorrect.Please try again.'
-                            console.log(response.status)
-                        } else if (response.status === 200) {							
+                            console.log(response.status, response)
+                        } else if (response.status === 200) {                            							
                             errDiv.innerHTML = ''
-                            console.log(response.status)								
+                            console.log(response.status, response.headers.get('x-auth-token'), response)	
+                            localStorage.setItem('token', JSON.stringify(response.headers.get('x-auth-token')))							
                             }						
                     })
                     .catch(error => {

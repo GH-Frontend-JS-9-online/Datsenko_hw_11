@@ -42,13 +42,13 @@ html(lang="en")
                     .then(response => {
                         if (response.status === 400) {
                             errDiv.innerHTML = 'Your password does not match'
-                            console.log(response.status)
+                            console.log(response.status, response)
                         } else if (response.status === 404) {
                             errDiv.innerHTML = 'Your password does not match'
-                            console.log(response.status)
+                            console.log(response.status, response)
                         } else if (response.status === 200) {							
                             errDiv.innerHTML = ''
-                            console.log(response.status)
+                            console.log(response.status, response)
                             window.location = "http://localhost:3000/pages/login.html"
                             }						
                     })
