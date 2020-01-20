@@ -2,15 +2,16 @@
 .btn {
   margin: 15px 0;
   width: 200px;
-  border-radius: 20px;
-  border: 1px solid #008000;
-  background-color: #008000;
+  border-radius: 5px;
+  border: 1px solid #2196f3;
+  background-color: #2196f3;
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
   padding: 12px 45px;
   letter-spacing: 1px;
   text-transform: uppercase;
+  cursor: pointer;
   transition: transform 80ms ease-in;
 }
 
@@ -23,7 +24,7 @@
 }
 
 .container {
-  background-color: #fff;
+  background-color: #2f3242;
   border-radius: 10px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
   0 10px 10px rgba(0, 0, 0, 0.22);
@@ -64,10 +65,9 @@
   }
 }
 
-
 .image {
   width: 300px;
   height: 300px;
-  border: 1px solid #008000;
+  border: 1px solid rgba(156, 161, 178, 0.3);
 }
 
