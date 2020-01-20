@@ -1,15 +1,9 @@
-const express = require("express");
-const bcrypt = require("bcrypt");
-const router = express.Router();
-
-const JsonService = require('../services/db');
 const auth = require("../middleware/auth");
-const { 
-    User, 
-    validate, validateResetPassword, validateSecret,
-    tokenGenerator  
-} = require("../models/user.model.js");
-
+const bcrypt = require("bcrypt");
+const { User, validate, validateResetPassword, tokenGenerator } = require("../models/user.model.js");
+const express = require("express");
+const router = express.Router();
+const JsonService = require('../services/db');
 
 router.get("/current", auth, async (req, res) => {
     let inDbUser = await JsonService.find((db) => {
@@ -17,50 +11,11 @@ router.get("/current", auth, async (req, res) => {
             return user._id == req.user._id;
         })
     });
-
-    if (typeof inDbUser == 'undefined' ) return res.status(400).jsonp('Invalid request');
-
     res.jsonp({
         _id: inDbUser._id,
         name: inDbUser.name,
         email: inDbUser.email
     });
-});
-
-router.get("/secret", auth, async (req, res) => {
-    let inDbUser = await JsonService.find((db) => {
-        return db.users.find((user) => {
-            return user._id == req.user._id;
-        })
-    });
-
-    if (typeof inDbUser == 'undefined' ) return res.status(400).jsonp('Invalid request');
-    
-    res.jsonp({
-        secret: inDbUser.secret
-    });
-});
-
-router.post("/secret", auth, async (req, res) => {
-    const { body } = req;
-
-    let { error } = validateSecret(body.secret);
-
-    let inDbUser = await JsonService.find((db) => {
-        return db.users.find((user) => {
-            return user._id == req.user._id;
-        })
-    });
-
-    if (typeof inDbUser == 'undefined' ) return res.status(400).jsonp('User does not exists');
-
-    await JsonService.save((db) => db.users.forEach((user) => {
-        if (user._id == inDbUser._id) {
-            return user.secret = body.secret
-        }
-    }));
-
-    res.status(200).send({})
 });
 
 router.post("/", async (req, res) => {
@@ -82,7 +37,13 @@ router.post("/", async (req, res) => {
         name: body.name,
         password: body.password,
         email: body.email,
-        secret: body.secret
+
+        // TODO: remove when we have Edit API available
+        position: "UX/UI Designer",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        phone: "+48 500 400 300",
+        address: "65 Lorem St, Warshaw, PL",
+        organization: "GeekHub Corp"
     });
 
     user.password = await bcrypt.hash(user.password, 10);

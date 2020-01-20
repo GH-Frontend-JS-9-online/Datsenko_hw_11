@@ -20,7 +20,7 @@ html(lang="en")
                     p You'll receive email with a link to reset password. Link is valid for 30 min only
                     input(type="submit" class="btn" name="sendemail" value="reset")
         script.
-            let apiBase = 'http://localhost:3000/api'
+            let apiBase = 'https://geekhub-frontend-js-9.herokuapp.com/api'
             const btnSendEmail = document.querySelector('input[name="sendemail"]')
             let errDiv = document.createElement('div')
             errDiv.style.cssText = 'color: red;'

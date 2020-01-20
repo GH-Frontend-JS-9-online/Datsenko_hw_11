@@ -20,7 +20,7 @@ html(lang="en")
                     a(href="http://localhost:3000/pages/sendreset.html") Forgot password?
                     input(type="submit" class="btn" name="login" value="Log in")
         script.
-            let apiBase = 'http://localhost:3000/api'
+            let apiBase = 'https://geekhub-frontend-js-9.herokuapp.com/api'
             const btnLogin = document.querySelector('input[name="login"]')
             let errDiv = document.createElement('div')
             errDiv.style.cssText = 'color: red;'
@@ -39,7 +39,7 @@ html(lang="en")
                     .then(response => {
                         if (response.status === 400) {
                             errDiv.innerHTML = 'Oops, looks like email or password is incorrect.Please try again.'
-                            console.log(response.statu, responses)
+                            console.log(response.status, responses)
                         } else if (response.status === 404) {
                             errDiv.innerHTML = 'Oops, looks like email or password is incorrect.Please try again.'
                             console.log(response.status, response)

@@ -7,23 +7,25 @@ const server = jsonServer.create();
 
 const accessHeader = require('./middleware/access-headers');
 
-const usersRoute = require("./routes/users.route")
+const usersRoute = require("./routes/users.route");
+const threadsRoute = require("./routes/threads.route");
 
 if (!config.get("myprivatekey")) {
-  console.error("FATAL ERROR: myprivatekey is not defined.")
-  process.exit(1)
+  console.error("FATAL ERROR: myprivatekey is not defined.");
+  process.exit(1);
 }
 
-server.use(accessHeader)
+server.use(accessHeader);
 
-server.use(middlewares)
+server.use(middlewares);
 
 server.use(jsonServer.bodyParser)
 
-server.use("/api/users", usersRoute)
+server.use("/api/users", usersRoute);
+server.use("/api/threads", threadsRoute);
 
-server.use(router)
+server.use(router);
 
 server.listen(3000, () => {
-  console.log('JSON Server is running')
-})
+  console.log('JSON Server is running on localhost:3000')
+});
