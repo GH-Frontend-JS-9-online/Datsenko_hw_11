@@ -46,7 +46,8 @@ p {
 form {
   position: absolute;
   right: 0;
-  background-color: #ffffff;
+  background-color: #2f3242;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,8 +59,11 @@ form {
 }
 
 input {
-  background-color: #eee;
-  border: none;
+  border-radius: 10px;
+  border: 1px solid rgba(156, 161, 178, 0.3);
+  background-color: #404359;
+  color: #ffffff;
+  outline: none;
   padding: 12px 15px;
   margin: 8px 0;
   width: 100%;
